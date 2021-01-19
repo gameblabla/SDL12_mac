@@ -17,6 +17,7 @@ SRCS = \
 	src/audio/SDL_wave.c \
 	src/cdrom/SDL_cdrom.c \
 	src/cdrom/macos/SDL_syscdrom.c \
+	src/joystick/SDL_joystick.c \
 	src/joystick/dummy/SDL_sysjoystick.c \
 	src/events/SDL_active.c \
 	src/events/SDL_events.c \
