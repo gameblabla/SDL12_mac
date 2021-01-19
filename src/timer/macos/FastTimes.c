@@ -21,7 +21,7 @@
 
 #ifdef TARGET_CPU_PPC
 #undef GENERATINGPOWERPC /* stop whining */
-#define GENERATINGPOWERPC TARGET_CPU_PPC
+//#define GENERATINGPOWERPC TARGET_CPU_PPC
 #endif
 
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
@@ -82,7 +82,6 @@ static asm UnsignedWide PollRTC(void);
 static asm UnsignedWide PollTBR(void);
 static Ptr FindFunctionInSharedLib(StringPtr libName, StringPtr funcName);
 
-static Boolean			gInited = false;
 static Boolean			gNative = false;
 static Boolean			gUseRTC = false;
 static Boolean			gUseTBR = false;
@@ -96,6 +95,8 @@ static UpTimeProcPtr 	gUpTime = NULL;
 static A2NSProcPtr 		gA2NS = NULL;
 
 #endif /* GENERATINGPOWERPC */
+
+static Boolean			gInited = false;
 
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */

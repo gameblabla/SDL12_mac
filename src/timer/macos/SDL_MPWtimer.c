@@ -123,6 +123,8 @@ pascal void TimerCallbackProc(TMTaskPtr tmTaskPtr)
 	}
 }
 
+#define Mac_NewTimerUPP(userRoutine)                                (TimerUPP)NewRoutineDescriptor((ProcPtr)(userRoutine), uppTimerProcInfo, GetCurrentArchitecture())
+
 int SDL_SYS_StartTimer(void)
 {
 	/*
@@ -130,7 +132,7 @@ int SDL_SYS_StartTimer(void)
 	 */
 	gExtendedTimerRec.tmTask.qLink = NULL;
 	gExtendedTimerRec.tmTask.qType = 0;
-	gExtendedTimerRec.tmTask.tmAddr = NewTimerUPP(TimerCallbackProc);
+	gExtendedTimerRec.tmTask.tmAddr = Mac_NewTimerUPP(TimerCallbackProc);
 	gExtendedTimerRec.tmTask.tmCount = 0;
 	gExtendedTimerRec.tmTask.tmWakeUp = 0;
 	gExtendedTimerRec.tmTask.tmReserved = 0;

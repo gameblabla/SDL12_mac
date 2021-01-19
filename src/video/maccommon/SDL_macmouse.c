@@ -107,6 +107,7 @@ int Mac_ShowWMCursor(_THIS, WMcursor *cursor)
 
 void Mac_WarpWMCursor(_THIS, Uint16 x, Uint16 y)
 {
+/*
 #if !TARGET_API_MAC_CARBON
 	CursorDevice *cursordevice;
 
@@ -124,6 +125,7 @@ void Mac_WarpWMCursor(_THIS, Uint16 x, Uint16 y)
 		SetPort(saveport);
 		CursorDeviceMoveTo(cursordevice, where.h, where.v);
 	}
-#endif /* !TARGET_API_MAC_CARBON */
+#endif
+*/
 }
 

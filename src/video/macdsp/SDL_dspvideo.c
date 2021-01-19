@@ -189,7 +189,7 @@ static int DSp_FillHWRect(_THIS, SDL_Surface *dst, SDL_Rect *rect, Uint32 color)
    #define GetPortPixMap(x) ((*(x)).portPixMap)
    
    #define GetPixDepth(y)    ((**(y)).pixelSize)
-   //#define GetPixRowBytes(y) ((**(y)).rowBytes)
+   #define MacGetPixRowBytes(y) ((**(y)).rowBytes)
    //#define GetPixBaseAddr(y) ((**(y)).baseAddr)
    #define GetPixCTab(y)     ((**(y)).pmTable)
     #define GetPortBitMapForCopyBits(x) (&(((GrafPtr)(x))->portBits))
@@ -1096,7 +1096,7 @@ static int DSp_AllocHWSurface(_THIS, SDL_Surface *surface)
 	
 	SDL_memset (surface->hwdata, 0, sizeof(private_hwdata));
 	surface->hwdata->offscreen = temp;
-	surface->pitch	 = GetPixRowBytes (GetPortPixMap (temp)) & 0x3FFF;
+	surface->pitch	 = MacGetPixRowBytes (GetPortPixMap (temp)) & 0x3FFF;
 	surface->pixels  = GetPixBaseAddr (GetPortPixMap (temp));
 	surface->flags	|= SDL_HWSURFACE;
 #ifdef DSP_TRY_CC_AND_AA	

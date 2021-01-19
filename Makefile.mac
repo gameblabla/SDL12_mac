@@ -1,0 +1,112 @@
+#GL=1
+
+CC = $(RETRO68)/bin/powerpc-apple-macos-gcc
+AR = $(RETRO68)/bin/powerpc-apple-macos-ar
+
+TARGET = libSDL.a
+
+CFLAGS=-Os -D__MACOS__ $(DEFS) -Iinclude -I$(RETRO68)/universal/CIncludes -Dpowerc
+
+SRCS = \
+	src/audio/macrom/SDL_romaudio.c \
+	src/audio/dummy/SDL_dummyaudio.c \
+	src/audio/SDL_audio.c \
+	src/audio/SDL_audiocvt.c \
+	src/audio/SDL_audiodev.c \
+	src/audio/SDL_mixer.c \
+	src/audio/SDL_wave.c \
+	src/cdrom/SDL_cdrom.c \
+	src/cdrom/macos/SDL_syscdrom.c \
+	src/joystick/dummy/SDL_sysjoystick.c \
+	src/events/SDL_active.c \
+	src/events/SDL_events.c \
+	src/events/SDL_expose.c \
+	src/events/SDL_keyboard.c \
+	src/events/SDL_mouse.c \
+	src/events/SDL_quit.c \
+	src/events/SDL_resize.c \
+	src/cpuinfo/SDL_cpuinfo.c \
+	src/main/macos/SDL_main.c \
+	src/timer/macos/FastTimes.c \
+	src/timer/macos/SDL_MPWtimer.c \
+	src/timer/macos/SDL_systimer.c \
+	src/file/SDL_rwops.c \
+	src/loadso/macos/SDL_sysloadso.c \
+	src/SDL.c \
+	src/SDL_error.c \
+	src/SDL_fatal.c \
+	src/stdlib/SDL_getenv.c \
+	src/stdlib/SDL_iconv.c \
+	src/stdlib/SDL_malloc.c \
+	src/stdlib/SDL_qsort.c \
+	src/stdlib/SDL_stdlib.c \
+	src/stdlib/SDL_string.c \
+	src/thread/SDL_thread.c \
+	src/thread/generic/SDL_syscond.c \
+	src/thread/generic/SDL_sysmutex.c \
+	src/thread/generic/SDL_syssem.c \
+	src/thread/generic/SDL_systhread.c \
+	src/timer/SDL_timer.c \
+	src/video/maccommon/SDL_macevents.c \
+	src/video/maccommon/SDL_macgl.c \
+	src/video/maccommon/SDL_macmouse.c \
+	src/video/maccommon/SDL_macwm.c \
+	src/video/macdsp/SDL_dspvideo.c \
+	src/video/macrom/SDL_romvideo.c \
+	src/video/dummy/SDL_nullevents.c \
+	src/video/dummy/SDL_nullmouse.c \
+	src/video/dummy/SDL_nullvideo.c \
+	src/video/SDL_blit.c \
+	src/video/SDL_blit_0.c \
+	src/video/SDL_blit_1.c \
+	src/video/SDL_blit_A.c \
+	src/video/SDL_blit_N.c \
+	src/video/SDL_bmp.c \
+	src/video/SDL_cursor.c \
+	src/video/SDL_gamma.c \
+	src/video/SDL_pixels.c \
+	src/video/SDL_RLEaccel.c \
+	src/video/SDL_stretch.c \
+	src/video/SDL_surface.c \
+	src/video/SDL_video.c \
+	src/video/SDL_yuv.c \
+	src/video/SDL_yuv_sw.c \
+
+OBJS = $(SRCS:.c=.o)
+
+TEST = \
+	test/checkkeys.c \
+	test/graywin.c \
+	test/loopwave.c \
+	test/testalpha.c \
+	test/testbitmap.c \
+	test/testcdrom.c \
+	test/testerror.c \
+	test/testgamma.c \
+	test/testgl.c \
+	test/testhread.c \
+	test/testjoystick.c \
+	test/testkeys.c \
+	test/testlock.c \
+	test/testoverlay.c \
+	test/testpalette.c \
+	test/testsem.c \
+	test/testsprite.c \
+	test/testtimer.c \
+	test/testtypes.c \
+	test/testver.c \
+	test/testvidinfo.c \
+	test/testwin.c \
+	test/testwm.c \
+	test/threadwin.c \
+	test/torturethread.c \
+
+$(TARGET): copy_config \
+	$(OBJS)
+	$(AR) rcs $(TARGET) $(OBJS) 
+
+copy_config:
+	@cp include/SDL_config.h.default include/SDL_config.h
+
+clean:
+	rm -f include/SDL_config.h $(OBJS)

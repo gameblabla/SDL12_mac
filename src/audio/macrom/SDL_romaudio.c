@@ -140,31 +140,31 @@ static void mix_buffer(SDL_AudioDevice *audio, UInt8 *buffer)
 #endif
     }
 
-    DecrementAtomic((SInt32 *) &need_to_mix);
+   // DecrementAtomic((SInt32 *) &need_to_mix);
 }
 
 static void Mac_LockAudio(_THIS)
 {
-    IncrementAtomic((SInt32 *) &audio_is_locked);
+    //IncrementAtomic((SInt32 *) &audio_is_locked);
 }
 
 static void Mac_UnlockAudio(_THIS)
 {
     SInt32 oldval;
          
-    oldval = DecrementAtomic((SInt32 *) &audio_is_locked);
-    if ( oldval != 1 )  /* != 1 means audio is still locked. */
-        return;
+    /*oldval = DecrementAtomic((SInt32 *) &audio_is_locked);
+    if ( oldval != 1 )
+        return;*/
 
     /* Did we miss the chance to mix in an interrupt? Do it now. */
-    if ( BitAndAtomic (0xFFFFFFFF, (UInt32 *) &need_to_mix) ) {
+   // if ( BitAndAtomic (0xFFFFFFFF, (UInt32 *) &need_to_mix) ) {
         /*
          * Note that this could be a problem if you missed an interrupt
          *  while the audio was locked, and get preempted by a second
          *  interrupt here, but that means you locked for way too long anyhow.
          */
         mix_buffer (this, buffer[fill_me]);
-    }
+   // }
 }
 
 static void callBackProc (SndChannel *chan, SndCommand *cmd_passed ) {
@@ -172,7 +172,7 @@ static void callBackProc (SndChannel *chan, SndCommand *cmd_passed ) {
    SndCommand cmd; 
    SDL_AudioDevice *audio = (SDL_AudioDevice *)chan->userInfo;
 
-   IncrementAtomic((SInt32 *) &need_to_mix);
+   //IncrementAtomic((SInt32 *) &need_to_mix);
 
    fill_me = cmd_passed->param2;  /* buffer that has just finished playing, so fill it */      
    play_me = ! fill_me;           /* filled buffer to play _now_ */
@@ -194,9 +194,9 @@ static void callBackProc (SndChannel *chan, SndCommand *cmd_passed ) {
     * if audio device isn't locked, mix the next buffer to be queued in
     *  the memory block that just finished playing.
     */
-   if ( ! BitAndAtomic(0xFFFFFFFF, (UInt32 *) &audio_is_locked) ) {
+   //if ( ! BitAndAtomic(0xFFFFFFFF, (UInt32 *) &audio_is_locked) ) {
       mix_buffer (audio, buffer[fill_me]);
-   } 
+   //} 
 
    /* set this callback to run again when current buffer drains. */
    if ( running ) {

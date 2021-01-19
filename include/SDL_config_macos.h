@@ -75,7 +75,7 @@ typedef unsigned long	uintptr_t;
 
 /* Enable various audio drivers */
 #define SDL_AUDIO_DRIVER_SNDMGR	1
-#define SDL_AUDIO_DRIVER_DISK	1
+//#define SDL_AUDIO_DRIVER_DISK	1
 #define SDL_AUDIO_DRIVER_DUMMY	1
 
 /* Enable various cdrom drivers */
@@ -89,7 +89,8 @@ typedef unsigned long	uintptr_t;
 #if TARGET_API_MAC_CARBON
 #define SDL_JOYSTICK_DUMMY	1
 #else
-#define SDL_JOYSTICK_MACOS	1
+//#define SDL_JOYSTICK_MACOS	1
+#define SDL_JOYSTICK_DUMMY	1
 #endif
 
 /* Enable various shared object loading systems */
@@ -103,10 +104,10 @@ typedef unsigned long	uintptr_t;
 
 /* Enable various video drivers */
 #define SDL_VIDEO_DRIVER_DUMMY	1
-#define SDL_VIDEO_DRIVER_DRAWSPROCKET	1
+//#define SDL_VIDEO_DRIVER_DRAWSPROCKET	1
 #define SDL_VIDEO_DRIVER_TOOLBOX	1
 
 /* Enable OpenGL support */
-#define SDL_VIDEO_OPENGL	1
+//#define SDL_VIDEO_OPENGL	1
 
 #endif /* _SDL_config_macos_h */

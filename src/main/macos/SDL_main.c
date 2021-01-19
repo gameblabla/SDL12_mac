@@ -352,7 +352,7 @@ int main(int argc, char *argv[])
 #pragma unused(argc, argv)
 #endif
 	
-#define DEFAULT_ARGS "\p"                /* pascal string for default args */
+#define DEFAULT_ARGS '\p'                /* pascal string for default args */
 #define DEFAULT_VIDEO_DRIVER "\ptoolbox" /* pascal string for default video driver name */	
 #define DEFAULT_OUTPUT_TO_FILE 1         /* 1 == output to file, 0 == no output */
 
