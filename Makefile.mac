@@ -105,6 +105,10 @@ $(TARGET): copy_config \
 	$(OBJS)
 	$(AR) rcs $(TARGET) $(OBJS) 
 
+install:
+	cp libSDL.a $(RETRO68)/powerpc-apple-macos/lib/libSDL.a
+	cp -ru include $(RETRO68)/powerpc-apple-macos/include/SDL
+
 copy_config:
 	@cp include/SDL_config.h.default include/SDL_config.h
 
