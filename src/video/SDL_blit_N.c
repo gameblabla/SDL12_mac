@@ -822,7 +822,7 @@ static Uint32 GetBlitFeatures( void )
         } else {
             features = ( 0
                 /* Feature 1 is has-MMX */
-                | ((SDL_HasMMX()) ? 1 : 0)
+                /*| ((SDL_HasMMX()) ? 1 : 0)*/
                 /* Feature 2 is has-AltiVec */
                 | ((SDL_HasAltiVec()) ? 2 : 0)
                 /* Feature 4 is dont-use-prefetch */
@@ -838,7 +838,8 @@ static Uint32 GetBlitFeatures( void )
 #endif
 #else
 /* Feature 1 is has-MMX */
-#define GetBlitFeatures() ((Uint32)(SDL_HasMMX() ? 1 : 0))
+//#define GetBlitFeatures() ((Uint32)(SDL_HasMMX() ? 1 : 0))
+#define GetBlitFeatures() (0)
 #endif
 
 /* This is now endian dependent */

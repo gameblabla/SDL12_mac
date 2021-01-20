@@ -271,6 +271,7 @@ static SDL_Rect **ROM_ListModes(_THIS, SDL_PixelFormat *format, Uint32 flags)
 
 static void ROM_HideMenuBar(_THIS)
 {
+#ifndef M68K_SDL
 #if !TARGET_API_MAC_CARBON /* This seems not to be available? -sts Aug 2000 */
 	RgnHandle		drawRgn = nil;
 	RgnHandle		tempRgn = nil;
@@ -348,10 +349,12 @@ CLEANUP:
 	if (tempRgn) DisposeRgn(tempRgn);
 	if (drawRgn) DisposeRgn(drawRgn);
 #endif /* !TARGET_API_MAC_CARBON */
+#endif
 }
 	
 static void ROM_ShowMenuBar(_THIS)
 {
+#ifndef M68K_SDL
 #if !TARGET_API_MAC_CARBON /* This seems not to be available? -sts Aug 2000 */
 	RgnHandle		drawRgn = nil;
 	RgnHandle		menuRgn = nil;
@@ -445,6 +448,7 @@ CLEANUP:
 	if (menuRgn) DisposeRgn(menuRgn);
 	if (tempRgn) DisposeRgn(tempRgn);
 #endif /* !TARGET_API_MAC_CARBON */
+#endif
 }
 
 /* Various screen update functions available */
@@ -457,8 +461,10 @@ static void ROM_UnsetVideoMode(_THIS, SDL_Surface *current)
 	if ( SDL_Window != nil ) {
 		GWorldPtr memworld;
 		
+#ifdef SDL_VIDEO_OPENGL
 		/* Handle OpenGL support */
 		Mac_GL_Quit(this);
+#endif
 
 		memworld = (GWorldPtr)GetWRefCon(SDL_Window);
 		if ( memworld != nil ) {
@@ -588,6 +594,7 @@ static SDL_Surface *ROM_SetVideoMode(_THIS, SDL_Surface *current,
 	SelectWindow(SDL_Window);
 
 	/* Handle OpenGL support */
+	#ifdef SDL_VIDEO_OPENGL
 	if ( flags & SDL_OPENGL ) {
 		if ( Mac_GL_Init(this) == 0 ) {
 			current->flags |= SDL_OPENGL;
@@ -595,6 +602,7 @@ static SDL_Surface *ROM_SetVideoMode(_THIS, SDL_Surface *current,
 			current = NULL;
 		}
 	}
+	#endif
 	
 	if ( (flags & SDL_HWPALETTE) && (flags & SDL_FULLSCREEN) )
 	   current->flags |= SDL_HWPALETTE;

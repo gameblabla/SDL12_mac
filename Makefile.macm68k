@@ -1,15 +1,12 @@
 #GL=1
 
-CC = $(RETRO68)/bin/powerpc-apple-macos-gcc
-AR = $(RETRO68)/bin/powerpc-apple-macos-ar
-RINCLUDES=$(RETRO68)/powerpc-apple-macos/RIncludes
+CC = $(RETRO68)/bin/m68k-apple-macos-gcc
+AR = $(RETRO68)/bin/m68k-apple-macos-ar
+RINCLUDES=$(RETRO68)/m68k-apple-macos/RIncludes
 
 TARGET = libSDL.a
 
-DEFS = -DPOWERPC_GAMMA -DSDL_OPTS
-#DSPVIDEO_POWERPC
-
-CFLAGS=-Ofast -D__MACOS__ $(DEFS) -Iinclude -I$(RETRO68)/universal/CIncludes -Dpowerc
+CFLAGS=-Os -D__MACOS__ -DM68K_SDL -m68020 $(DEFS) -Iinclude -I$(RETRO68)/universal/CIncludes
 
 SRCS = \
 	src/audio/macrom/SDL_romaudio.c \
@@ -18,8 +15,6 @@ SRCS = \
 	src/audio/SDL_audiodev.c \
 	src/audio/SDL_mixer.c \
 	src/audio/SDL_wave.c \
-	src/cdrom/SDL_cdrom.c \
-	src/cdrom/macos/SDL_syscdrom.c \
 	src/joystick/SDL_joystick.c \
 	src/joystick/dummy/SDL_sysjoystick.c \
 	src/events/SDL_active.c \
@@ -33,15 +28,10 @@ SRCS = \
 	src/timer/macos/FastTimes.c \
 	src/timer/macos/SDL_MPWtimer.c \
 	src/file/SDL_rwops.c \
-	src/loadso/macos/SDL_sysloadso.c \
 	src/SDL.c \
 	src/SDL_error.c \
 	src/SDL_fatal.c \
 	src/stdlib/SDL_getenv.c \
-	src/stdlib/SDL_iconv.c \
-	src/stdlib/SDL_malloc.c \
-	src/stdlib/SDL_qsort.c \
-	src/stdlib/SDL_stdlib.c \
 	src/stdlib/SDL_string.c \
 	src/thread/SDL_thread.c \
 	src/thread/generic/SDL_syscond.c \
@@ -50,10 +40,8 @@ SRCS = \
 	src/thread/generic/SDL_systhread.c \
 	src/timer/SDL_timer.c \
 	src/video/maccommon/SDL_macevents.c \
-	src/video/maccommon/SDL_macgl.c \
 	src/video/maccommon/SDL_macmouse.c \
 	src/video/maccommon/SDL_macwm.c \
-	src/video/macdsp/SDL_dspvideo.c \
 	src/video/macrom/SDL_romvideo.c \
 	src/video/SDL_blit.c \
 	src/video/SDL_blit_0.c \
@@ -62,14 +50,11 @@ SRCS = \
 	src/video/SDL_blit_N.c \
 	src/video/SDL_bmp.c \
 	src/video/SDL_cursor.c \
-	src/video/SDL_gamma.c \
 	src/video/SDL_pixels.c \
 	src/video/SDL_RLEaccel.c \
 	src/video/SDL_stretch.c \
 	src/video/SDL_surface.c \
 	src/video/SDL_video.c \
-	src/video/SDL_yuv.c \
-	src/video/SDL_yuv_sw.c \
 
 OBJS = $(SRCS:.c=.o)
 
@@ -78,9 +63,9 @@ $(TARGET): copy_config \
 	$(AR) rcs $(TARGET) $(OBJS) 
 
 install:
-	cp libSDL.a $(RETRO68)/powerpc-apple-macos/lib/libSDL.a
-	mkdir -p $(RETRO68)/powerpc-apple-macos/include/SDL
-	cp -ru include/*.h $(RETRO68)/powerpc-apple-macos/include/SDL
+	cp libSDL.a $(RETRO68)/m68k-apple-macos/lib/libSDL.a
+	mkdir -p $(RETRO68)/m68k-apple-macos/include/SDL
+	cp -ru include/*.h $(RETRO68)/m68k-apple-macos/include/SDL
 	cp src/main/macos/SDL.r $(RINCLUDES)/SDL.r
 	cp src/main/macos/SIZE.r $(RINCLUDES)/SIZE.r
 

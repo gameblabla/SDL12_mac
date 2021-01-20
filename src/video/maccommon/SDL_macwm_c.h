@@ -31,7 +31,11 @@ extern void Mac_SetCaption(_THIS, const char *title, const char *icon);
  *  Control() aren't supported in OS X's Carbonlib. Use the Quartz driver
  *  instead.
  */
+#ifndef M68K_SDL
 #define SDL_MACCLASSIC_GAMMA_SUPPORT ((defined(__APPLE__) && defined(__MACH__)) == 0)
+#else
+#undef SDL_MACCLASSIC_GAMMA_SUPPORT
+#endif
 
 #if SDL_MACCLASSIC_GAMMA_SUPPORT
 extern void Mac_QuitGamma(_THIS);

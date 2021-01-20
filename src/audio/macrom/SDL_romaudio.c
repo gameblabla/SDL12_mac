@@ -150,7 +150,7 @@ static void Mac_LockAudio(_THIS)
 
 static void Mac_UnlockAudio(_THIS)
 {
-    SInt32 oldval;
+    //SInt32 oldval;
          
     /*oldval = DecrementAtomic((SInt32 *) &audio_is_locked);
     if ( oldval != 1 )
@@ -163,7 +163,7 @@ static void Mac_UnlockAudio(_THIS)
          *  while the audio was locked, and get preempted by a second
          *  interrupt here, but that means you locked for way too long anyhow.
          */
-        mix_buffer (this, buffer[fill_me]);
+        //mix_buffer (this, buffer[fill_me]);
    // }
 }
 

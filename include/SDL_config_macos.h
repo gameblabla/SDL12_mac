@@ -35,11 +35,14 @@ typedef SInt16	int16_t;
 typedef UInt16	uint16_t;
 typedef SInt32	int32_t;
 typedef UInt32	uint32_t;
-typedef SInt64	int64_t;
-typedef UInt64	uint64_t;
+/* They conflict for some reasons */
+//typedef SInt64	int64_t;
+//typedef UInt64	uint64_t;
 typedef unsigned long	uintptr_t;
 
+#ifndef M68K_SDL
 #define SDL_HAS_64BIT_TYPE	1
+#endif
 
 /* Useful headers */
 #define HAVE_STDIO_H	1
@@ -47,7 +50,7 @@ typedef unsigned long	uintptr_t;
 #define HAVE_STRING_H	1
 #define HAVE_CTYPE_H	1
 #define HAVE_MATH_H	1
-#define HAVE_SIGNAL_H	1
+//#define HAVE_SIGNAL_H	1
 
 /* C library functions */
 #define HAVE_MALLOC	1
@@ -72,15 +75,18 @@ typedef unsigned long	uintptr_t;
 #define HAVE_STRCMP	1
 #define HAVE_STRNCMP	1
 #define HAVE_SSCANF	1
+#define HAVE_STRDUP 1
+#define HAVE_STRLCPY 1
+#define HAVE_STRCASECMP 1
 
 /* Enable various audio drivers */
 #define SDL_AUDIO_DRIVER_SNDMGR	1
 //#define SDL_AUDIO_DRIVER_DISK	1
-#define SDL_AUDIO_DRIVER_DUMMY	1
+//#define SDL_AUDIO_DRIVER_DUMMY	1
 
 /* Enable various cdrom drivers */
-#if TARGET_API_MAC_CARBON
-#define SDL_CDROM_DUMMY		1
+#if defined(TARGET_API_MAC_CARBON) || defined(M68K_SDL)
+#define SDL_CDROM_DISABLED		1
 #else
 #define SDL_CDROM_MACOS		1
 #endif
@@ -94,7 +100,11 @@ typedef unsigned long	uintptr_t;
 #endif
 
 /* Enable various shared object loading systems */
+#ifdef defined(M68K_SDL)
+#define SDL_LOADSO_DISABLED	1
+#else
 #define SDL_LOADSO_MACOS	1
+#endif
 
 /* Enable various threading systems */
 #define SDL_THREADS_DISABLED	1
@@ -103,9 +113,26 @@ typedef unsigned long	uintptr_t;
 #define SDL_TIMER_MACOS	1
 
 /* Enable various video drivers */
-#define SDL_VIDEO_DRIVER_DUMMY	1
-//#define SDL_VIDEO_DRIVER_DRAWSPROCKET	1
+//#define SDL_VIDEO_DRIVER_DUMMY	1
+#ifdef DSPVIDEO_POWERPC
+#define SDL_VIDEO_DRIVER_DRAWSPROCKET	1
+#endif
 #define SDL_VIDEO_DRIVER_TOOLBOX	1
+
+#ifdef M68K_SDL
+#undef SDL_MACCLASSIC_GAMMA_SUPPORT
+#define SDL_OPTS
+#endif
+
+#ifdef SDL_OPTS
+#define SDL_EVENTS_DISABLED 1
+#define SDL_NOERROR 1
+#define SDL_memcpy memcpy
+#define SDL_memcmp memcmp
+#define SDL_strlcpy strlcpy
+#define SDL_strdup strdup
+#define SDL_strcasecmp strcasecmp
+#endif
 
 /* Enable OpenGL support */
 //#define SDL_VIDEO_OPENGL	1

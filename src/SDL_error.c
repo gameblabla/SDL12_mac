@@ -39,6 +39,44 @@ extern SDL_error *SDL_GetErrBuf(void);
 
 /* Private functions */
 
+#ifdef SDL_NOERROR
+
+static const char *SDL_LookupString(const char *key)
+{
+	return key;
+}
+
+/* Public functions */
+
+void SDL_SetError (const char *fmt, ...)
+{
+}
+
+/* This function has a bit more overhead than most error functions
+   so that it supports internationalization and thread-safe errors.
+*/
+char *SDL_GetErrorMsg(char *errstr, unsigned int maxlen)
+{
+	return "";
+}
+
+/* Available for backwards compatibility */
+char *SDL_GetError (void)
+{
+	return "";
+}
+
+void SDL_ClearError(void)
+{
+}
+
+/* Very common errors go here */
+void SDL_Error(SDL_errorcode code)
+{
+}
+
+#else
+
 static const char *SDL_LookupString(const char *key)
 {
 	/* FIXME: Add code to lookup key in language string hash-table */
@@ -220,6 +258,7 @@ void SDL_Error(SDL_errorcode code)
 			break;
 	}
 }
+#endif
 
 #ifdef TEST_ERROR
 int main(int argc, char *argv[])
