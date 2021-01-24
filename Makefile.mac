@@ -6,8 +6,9 @@ RINCLUDES=$(RETRO68)/powerpc-apple-macos/RIncludes
 
 TARGET = libSDL.a
 
-DEFS = -DPOWERPC_GAMMA -DSDL_OPTS
-#DSPVIDEO_POWERPC
+DEFS = -DSDL_OPTS
+#-DATOMIC_AUDIO
+#-DSPVIDEO_POWERPC
 
 CFLAGS=-Ofast -D__MACOS__ $(DEFS) -Iinclude -I$(RETRO68)/universal/CIncludes -Dpowerc
 
