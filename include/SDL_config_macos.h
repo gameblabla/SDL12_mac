@@ -100,7 +100,7 @@ typedef unsigned long	uintptr_t;
 #endif
 
 /* Enable various shared object loading systems */
-#ifdef defined(M68K_SDL)
+#if defined(M68K_SDL)
 #define SDL_LOADSO_DISABLED	1
 #else
 #define SDL_LOADSO_MACOS	1

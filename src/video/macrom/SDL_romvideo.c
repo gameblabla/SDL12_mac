@@ -702,9 +702,7 @@ static int ROM_SetColors(_THIS, int firstcolor, int ncolors, SDL_Color *colors)
 		(**cTab).ctTable[j].rgb.blue = colors[i].b << 8 | colors[i].b;
 	}
 
-#if 0
 	if ( (this->screen->flags & SDL_FULLSCREEN) == SDL_FULLSCREEN )
-#endif
 	{
 		GDevice **odisplay;
 		odisplay = GetGDevice();

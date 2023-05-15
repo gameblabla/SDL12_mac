@@ -354,7 +354,7 @@ int main(int argc, char *argv[])
 	
 #define DEFAULT_ARGS '\p'                /* pascal string for default args */
 #define DEFAULT_VIDEO_DRIVER "\ptoolbox" /* pascal string for default video driver name */	
-#define DEFAULT_OUTPUT_TO_FILE 1         /* 1 == output to file, 0 == no output */
+#define DEFAULT_OUTPUT_TO_FILE 0         /* 1 == output to file, 0 == no output */
 
 #define VIDEO_ID_DRAWSPROCKET 1          /* these correspond to popup menu choices */
 #define VIDEO_ID_TOOLBOX      2

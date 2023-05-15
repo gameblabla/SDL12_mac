@@ -6,7 +6,7 @@ RINCLUDES=$(RETRO68)/m68k-apple-macos/RIncludes
 
 TARGET = libSDL.a
 
-CFLAGS=-Os -D__MACOS__ -DM68K_SDL -m68020 $(DEFS) -Iinclude -I$(RETRO68)/universal/CIncludes
+CFLAGS=-Os -fdata-sections -ffunction-sections -fipa-pta  -D__MACOS__ -DM68K_SDL -m68000 $(DEFS) -Iinclude -I$(RETRO68)/universal/CIncludes
 
 SRCS = \
 	src/audio/macrom/SDL_romaudio.c \
@@ -64,6 +64,7 @@ $(TARGET): copy_config \
 
 install:
 	cp libSDL.a $(RETRO68)/m68k-apple-macos/lib/libSDL.a
+	cp src/main/macos/SDL_main.o $(RETRO68)/m68k-apple-macos/lib/libSDLmain.a
 	mkdir -p $(RETRO68)/m68k-apple-macos/include/SDL
 	cp -ru include/*.h $(RETRO68)/m68k-apple-macos/include/SDL
 	cp src/main/macos/SDL.r $(RINCLUDES)/SDL.r

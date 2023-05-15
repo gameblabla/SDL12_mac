@@ -35,11 +35,14 @@
 #include "../SDL_timer_c.h"
 
 #define MS_PER_TICK	(1000/60)		/* MacOS tick = 1/60 second */
+#define SHIFT_FACTOR 4 // this is equivalent to multiplying or dividing by 16
 
 /* Note: This is only a step above the original 1/60s implementation.
  *       For a good implementation, see FastTimes.[ch], by Matt Slot.
  */
+#ifndef SDL_OPTS
 #define USE_MICROSECONDS
+#endif
 #define WideTo64bit(w)	(*(UInt64 *) &(w))
 
 UInt64 start;
@@ -65,6 +68,7 @@ Uint32 SDL_GetTicks(void)
 	return (Uint32)((WideTo64bit(now)-start)/1000);
 #else
 	return(LMGetTicks()*MS_PER_TICK);
+
 #endif
 }
 
@@ -80,6 +84,7 @@ void SDL_Delay(Uint32 ms)
 #else
 	UInt32		unused; /* MJS */
 	Delay(ms/MS_PER_TICK, &unused);
+	
 #endif
 }
 
@@ -152,3 +157,6 @@ void SDL_SYS_StopTimer(void)
 }
 
 #endif /* SDL_TIMER_MACOS */
+
+
+

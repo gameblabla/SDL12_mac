@@ -10,7 +10,7 @@ DEFS = -DSDL_OPTS
 #-DATOMIC_AUDIO
 #-DSPVIDEO_POWERPC
 
-CFLAGS=-Ofast -D__MACOS__ $(DEFS) -Iinclude -I$(RETRO68)/universal/CIncludes -Dpowerc
+CFLAGS=-Os -fdata-sections -ffunction-sections -fipa-pta -D__MACOS__ $(DEFS) -Iinclude -I$(RETRO68)/universal/CIncludes -Dpowerc
 
 SRCS = \
 	src/audio/macrom/SDL_romaudio.c \
@@ -80,6 +80,7 @@ $(TARGET): copy_config \
 
 install:
 	cp libSDL.a $(RETRO68)/powerpc-apple-macos/lib/libSDL.a
+	cp src/main/macos/SDL_main.o $(RETRO68)/powerpc-apple-macos/lib/libSDLmain.a
 	mkdir -p $(RETRO68)/powerpc-apple-macos/include/SDL
 	cp -ru include/*.h $(RETRO68)/powerpc-apple-macos/include/SDL
 	cp src/main/macos/SDL.r $(RINCLUDES)/SDL.r
