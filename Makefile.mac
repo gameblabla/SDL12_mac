@@ -6,7 +6,8 @@ RINCLUDES=$(RETRO68)/powerpc-apple-macos/RIncludes
 
 TARGET = libSDL.a
 
-# Define DSPVIDEO option
+# This is for making use of Game Sprockets. Game Sprockets is only provided as part of Mac OS 8.5 by default. 
+# Earlier version need older versions to be installed separately
 DSPVIDEO = 0
 
 DEFS = -DSDL_OPTS 
@@ -74,7 +75,6 @@ SRCS = \
 	src/video/SDL_yuv_sw.c \
 
 
-# Conditional addition of DSPVIDEO_POWERPC definition
 ifeq ($(DSPVIDEO),1)
 DEFS += -DDSPVIDEO_POWERPC
 SRCS += src/video/macdsp/SDL_dspvideo.c
