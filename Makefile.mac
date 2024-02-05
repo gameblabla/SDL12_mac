@@ -6,6 +6,9 @@ RINCLUDES=$(RETRO68)/powerpc-apple-macos/RIncludes
 
 TARGET = libSDL.a
 
+# Define DSPVIDEO option
+DSPVIDEO = 0
+
 DEFS = -DSDL_OPTS 
 #-DATOMIC_AUDIO
 #-DDSPVIDEO_POWERPC
@@ -54,7 +57,6 @@ SRCS = \
 	src/video/maccommon/SDL_macgl.c \
 	src/video/maccommon/SDL_macmouse.c \
 	src/video/maccommon/SDL_macwm.c \
-	src/video/macdsp/SDL_dspvideo.c \
 	src/video/SDL_blit.c \
 	src/video/SDL_blit_0.c \
 	src/video/SDL_blit_1.c \
@@ -70,6 +72,15 @@ SRCS = \
 	src/video/SDL_video.c \
 	src/video/SDL_yuv.c \
 	src/video/SDL_yuv_sw.c \
+
+
+# Conditional addition of DSPVIDEO_POWERPC definition
+ifeq ($(DSPVIDEO),1)
+DEFS += -DDSPVIDEO_POWERPC
+SRCS += src/video/macdsp/SDL_dspvideo.c
+else
+SRCS += src/video/macrom/SDL_romvideo.c
+endif
 
 OBJS = $(SRCS:.c=.o)
 
