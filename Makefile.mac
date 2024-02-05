@@ -6,9 +6,9 @@ RINCLUDES=$(RETRO68)/powerpc-apple-macos/RIncludes
 
 TARGET = libSDL.a
 
-DEFS = -DSDL_OPTS
+DEFS = -DSDL_OPTS 
 #-DATOMIC_AUDIO
-#-DSPVIDEO_POWERPC
+#-DDSPVIDEO_POWERPC
 
 CFLAGS=-Os -fdata-sections -ffunction-sections -fipa-pta -D__MACOS__ $(DEFS) -Iinclude -I$(RETRO68)/universal/CIncludes -Dpowerc
 
@@ -55,7 +55,6 @@ SRCS = \
 	src/video/maccommon/SDL_macmouse.c \
 	src/video/maccommon/SDL_macwm.c \
 	src/video/macdsp/SDL_dspvideo.c \
-	src/video/macrom/SDL_romvideo.c \
 	src/video/SDL_blit.c \
 	src/video/SDL_blit_0.c \
 	src/video/SDL_blit_1.c \

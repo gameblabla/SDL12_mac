@@ -701,10 +701,12 @@ static int DSp_ConfirmSwitch () {
    /* On MacOS 8.5 or later, we can make the dialog go away after 15 seconds */
    /* This is good since it's possible user can't even see the dialog! */
    /* Requires linking to DialogsLib */
+   #ifdef DIALOGLIB_MACOS_DEP
    err = Gestalt(gestaltSystemVersion,&response);
    if (err == noErr && response >= 0x00000850) {
    	SetDialogTimeout(dialog, bCancel, 15);
    }
+   #endif
 
    do {      
     

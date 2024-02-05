@@ -116,8 +116,14 @@ typedef unsigned long	uintptr_t;
 //#define SDL_VIDEO_DRIVER_DUMMY	1
 #ifdef DSPVIDEO_POWERPC
 #define SDL_VIDEO_DRIVER_DRAWSPROCKET	1
-#endif
+#undef SDL_VIDEO_DRIVER_TOOLBOX
+#else
 #define SDL_VIDEO_DRIVER_TOOLBOX	1
+#undef SDL_VIDEO_DRIVER_DRAWSPROCKET
+#endif
+
+// For Mac OS 8.5, used to make the dialog go away if DRAWSPROCKET is enabled
+//#define DIALOGLIB_MACOS_DEP 1
 
 #ifdef M68K_SDL
 #undef SDL_MACCLASSIC_GAMMA_SUPPORT
